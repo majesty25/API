@@ -27,9 +27,9 @@ app.get('/customers/:email/:password', async (req, res) => {
         const password = req.params.password;
 
         const cust = result?result.filter(function(row) {    
-          return  (row.Email === req.params.email && row.Password === req.params.password);
+          return  (row.Email === email && row.Password === password);
         }): [];
-        console.log(cust)
+        console.log(cust);
         res.send(JSON.stringify(cust));
       });
       } 
