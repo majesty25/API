@@ -50,10 +50,10 @@ app.post('/CUSTOMER', async (req, res) => {
 
     const schema = Joi.object({ 
       name: Joi.string() .min(6) .required(),
-      age: Joi.required()
+      age: Joi.number().required()
     });
 
-    const validation = schema.validate(req.body) 
+    const validation = schema.validate(user) 
     
 
       // res.send(validation);
