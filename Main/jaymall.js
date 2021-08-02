@@ -85,18 +85,26 @@ app.post('/CUSTOMER', async (req, res) => {
 app.get('/items', (req, res) => {
      con.connect(function(err) {
       if (err) {
-        return console.error('error: ' + err.message);
+        console.error('error: ' + err.message);
+        res.status.send(err.message);
+        return 
       }
       else{
-        con.query("SELECT * FROM item", function (err, result) {    
-        const email = req.params.email;
-        const password = req.params.password;
-
-        const items = result?result.filter(function(row) {    
+        con.query("SELECT * FROM itemw", function (err, result) {
+          //CHECKING IF TABLE EXIST
+          if (err){
+             console.error('error: ' + err.message);
+             res.send([]);
+          } 
+          else{
+            const items = result?result.filter(function(row) {    
           return  row;
         }): [];
-        console.log(items)
+        console.log(items);
         res.send(JSON.stringify(items));
+          }    
+        
+        
         
       });
       } 
