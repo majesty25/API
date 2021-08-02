@@ -40,8 +40,6 @@ app.get('/customers/:email/:password', async (req, res) => {
 
 });
 
-
-
 //ADDING USER TO THE DATABASE
 app.post('/CUSTOMER', async (req, res) => {
     const user = req.body; 
@@ -70,13 +68,7 @@ app.post('/CUSTOMER', async (req, res) => {
                 console.log("1 record inserted");
              });
             });
-            res.send('Insrted');
-  
-    
-    
-  
-
- 
+            res.send('Insrted'); 
     
 });
 
