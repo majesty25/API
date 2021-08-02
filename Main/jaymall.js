@@ -44,19 +44,19 @@ app.get('/customers/:email/:password', async (req, res) => {
 
 //ADDING USER TO THE DATABASE
 app.post('/CUSTOMER', async (req, res) => {
-  const user = req.body; 
-  const name = user.name; 
-  const age = user.age; 
+    const user = req.body; 
+    const name = user.name; 
+    const age = user.age; 
 
+    //USER INPUT VALIDATION SCHEMA
     const schema = Joi.object({ 
       name: Joi.string() .min(6) .required(),
       age: Joi.number().required()
     });
 
-    const validation = schema.validate(user) 
-    
+    const validation = schema.validate(user);    
 
-      // res.send(validation);
+      //CHECKING SENDING VALIDATION ERROR MESSAGE IF THERE IS ANY
       if (validation.error){
         res.status(400).send(validation.error.details[0].message);
         re(validation.error.details[0].message);
@@ -65,7 +65,7 @@ app.post('/CUSTOMER', async (req, res) => {
       }
       con.connect(function(err) {      
             var sql = `INSERT INTO customer (Name, Age) VALUES ('${user.name}', '${user.age}')`;
-            con.query(sql, function (err, result) {
+            con.query(sql, function (err) {
                 if (err) throw err;
                 console.log("1 record inserted");
              });
