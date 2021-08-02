@@ -16,7 +16,7 @@ const con = mysql.createConnection({
 });
 
 //RETREIVING USER FROM THE DATABASE 
-app.get('/customers/:email/:password', async (req, res) => {  
+app.get('/customers/:email/:password', async (req, res) => { 
     con.connect(function(err) {
       if (err) {
         return console.error('error: ' + err.message);
@@ -29,6 +29,7 @@ app.get('/customers/:email/:password', async (req, res) => {
         const cust = result?result.filter(function(row) {    
           return  (row.Email === req.params.email && row.Password === req.params.password);
         }): [];
+        console.log(cust)
         res.send(JSON.stringify(cust));
       });
       } 
@@ -43,15 +44,39 @@ app.get('/customers/:email/:password', async (req, res) => {
 
 //ADDING USER TO THE DATABASE
 app.post('/CUSTOMER', async (req, res) => {
-  const user = req.body;  
-  con.connect(function(err) {      
+  const user = req.body; 
+  const name = user.name; 
+  const age = user.age; 
+
+    const schema = Joi.object({ 
+      name: Joi.string() .min(6) .required(),
+      age: Joi.required()
+    });
+
+    const validation = schema.validate(req.body) 
+    
+
+      // res.send(validation);
+      if (validation.error){
+        res.status(400).send(validation.error.details[0].message);
+        re(validation.error.details[0].message);
+        
+        return;
+      }
+      con.connect(function(err) {      
             var sql = `INSERT INTO customer (Name, Age) VALUES ('${user.name}', '${user.age}')`;
             con.query(sql, function (err, result) {
                 if (err) throw err;
                 console.log("1 record inserted");
              });
             });
-            res.send('Insrted')
+            res.send('Insrted');
+  
+    
+    
+  
+
+ 
     
 });
 
@@ -67,10 +92,12 @@ app.get('/items', (req, res) => {
         const email = req.params.email;
         const password = req.params.password;
 
-        const cust = result?result.filter(function(row) {    
+        const items = result?result.filter(function(row) {    
           return  row;
         }): [];
-        res.send(JSON.stringify(cust));
+        console.log(items)
+        res.send(JSON.stringify(items));
+        
       });
       } 
       
