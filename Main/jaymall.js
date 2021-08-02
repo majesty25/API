@@ -80,7 +80,7 @@ app.get('/items', (req, res) => {
 });
 
 app.get('/USER', (req, res) => {
-    res.send("New router")
+    res.send("New router");
 });
 
 
