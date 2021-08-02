@@ -90,7 +90,7 @@ app.get('/items', (req, res) => {
         return 
       }
       else{
-        con.query("SELECT * FROM itemw", function (err, result) {
+        con.query("SELECT * FROM item", function (err, result) {
           //CHECKING IF TABLE EXIST
           if (err){
              console.error('error: ' + err.message);
