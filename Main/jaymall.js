@@ -94,9 +94,7 @@ app.get('/items', (req, res) => {
         }): [];
         console.log(items);
         res.send(JSON.stringify(items));
-          }    
-        
-        
+          }        
         
       });
       } 
